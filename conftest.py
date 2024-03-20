@@ -5,7 +5,7 @@ from utils.url import HOME_PAGE_URL
 
 @pytest.fixture()
 def set_up(playwright: Playwright) -> None:
-    browser = playwright.chromium.launch(headless=False, slow_mo=400)
+    browser = playwright.chromium.launch(headless=False)
     context = browser.new_context()
     # Open new page and go to our URL
     page = context.new_page()
