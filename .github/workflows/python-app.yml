@@ -50,9 +50,16 @@ jobs:
     - name: Archive Allure reports
       uses: actions/upload-artifact@v2
       with:
-        name: allure-results
-        path: allure-results
-    - name: Publish Allure reports
-      uses: shelex/allure-github-action@v2
+          name: allure-results
+          path: allure-results
+
+    - name: Prepare Allure reports for GitHub Pages
+      run: |
+          mkdir -p docs
+          cp -r allure-results/* docs/
+
+    - name: Deploy Allure reports to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        path: allure-results
+        github_token: ${{ secrets.TOKEN }}
+        publish_dir: ./docs
