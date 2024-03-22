@@ -25,4 +25,4 @@ def test_sign_in(set_up):
     cust_page.set_email(os.environ['EMAIL'])
     cust_page.set_password(os.environ['PASSWORD'])
     cust_page.click_sign_in()
-    expect(page.get_by_text('The account sign-in was incorrect')).to_be_visible()
+    expect(page.get_by_text('The account sign-in was incorrect')).to_be_visible(timeout=700)
