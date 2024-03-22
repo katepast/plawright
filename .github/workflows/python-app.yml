@@ -29,6 +29,7 @@ jobs:
         pip install flake8 pytest-playwright
         python -m pip install playwright
         python -m pip install pytest-xdist
+        python -m pip install playwright pytest pytest-playwright
     - name: Ensure Playwright browsers are installed
       run: |
         python -m playwright install chromium
@@ -44,7 +45,7 @@ jobs:
           EMAIL: ${{secrets.EMAIL}}
           PASSWORD: ${{secrets.PASSWORD}}
       run: |
-        pytest --headful --report-path=playwright_report.html
+        pytest --headful --playwright-headful --playwright-screenshot-on-failure --playwright-report-path=playwright_report.html
     - name: Archive test report
       uses: actions/upload-artifact@v2
       with:
@@ -57,5 +58,3 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: .
         keep_files: true
-         
-     
