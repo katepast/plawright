@@ -2,8 +2,10 @@ import re
 from playwright.sync_api import expect
 from pages.customer_login_page import CustomerLoginPage
 from pages.home_page import HomePage
+import pytest
 
 
+@pytest.mark.smoke
 def test_open_whats_new_page(set_up):
     page = set_up
     home_page = HomePage(page)
@@ -13,6 +15,7 @@ def test_open_whats_new_page(set_up):
     expect(page).to_have_url(re.compile(".*/what-is-new.html"))
 
 
+@pytest.mark.smoke
 def test_sign_in(set_up):
     page = set_up
     home_page = HomePage(page)
