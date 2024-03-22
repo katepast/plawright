@@ -52,3 +52,7 @@ jobs:
       with:
         name: allure-results
         path: allure-results
+    - name: Publish Allure reports
+      uses: shelex/allure-github-action@v2
+      with:
+        path: allure-results
