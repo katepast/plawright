@@ -14,4 +14,12 @@ def set_up(playwright: Playwright) -> None:
     # Teardown: Close the browser context
     browser.close()
 
-
+@pytest.fixture()
+def sign_in(set_up):
+    page = set_up
+    home_page = HomePage(page)
+    cust_page = CustomerLoginPage(page)
+    home_page.click_sign_in_btn()
+    cust_page.set_email(EMAIL)
+    cust_page.set_password(PASSWORD)
+    yield page
