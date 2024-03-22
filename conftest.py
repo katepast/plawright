@@ -2,17 +2,12 @@ import os
 import pytest
 from playwright.sync_api import Playwright
 
-import utils.secret_config
 from pages.customer_login_page import CustomerLoginPage
 from pages.home_page import HomePage
 from utils.url import HOME_PAGE_URL
 
-try:
-    EMAIL = os.environ['EMAIL']
-    PASSWORD = os.environ['EMAIL']
-except KeyError:
-    EMAIL = utils.secret_config.EMAIL
-    PASSWORD = utils.secret_config.PASSWORD
+EMAIL = os.environ['EMAIL']
+PASSWORD = os.environ['EMAIL']
 
 
 @pytest.fixture()
