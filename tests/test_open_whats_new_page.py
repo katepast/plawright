@@ -21,4 +21,6 @@ def test_sign_in(sign_in):
     page = sign_in
     cust_page = CustomerLoginPage(page)
     cust_page.click_sign_in()
-    expect(page.get_by_text("Customer Login")).to_be_visible()
+    
+    expect(page).to_have_url(re.compile(".*/customer/account/login/*"))
+    #expect(page.get_by_text("Customer Login")).to_be_visible()
