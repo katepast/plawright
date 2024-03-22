@@ -1,6 +1,10 @@
 import os
+
+import os
 import pytest
 from playwright.sync_api import Playwright
+from pages.customer_login_page import CustomerLoginPage
+from pages.home_page import HomePage
 
 from pages.customer_login_page import CustomerLoginPage
 from pages.home_page import HomePage
@@ -12,7 +16,7 @@ PASSWORD = os.environ['EMAIL']
 
 @pytest.fixture()
 def set_up(playwright: Playwright) -> None:
-    browser = playwright.chromium.launch(headless=True,slow_mo=500)
+    browser = playwright.chromium.launch(headless=True)
     context = browser.new_context()
     # Open new page and go to our URL
     page = context.new_page()
@@ -20,6 +24,7 @@ def set_up(playwright: Playwright) -> None:
     yield page
     # Teardown: Close the browser context
     browser.close()
+
 
 @pytest.fixture()
 def sign_in(set_up):
@@ -30,3 +35,4 @@ def sign_in(set_up):
     cust_page.set_email(EMAIL)
     cust_page.set_password(PASSWORD)
     yield page
+
