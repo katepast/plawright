@@ -29,7 +29,6 @@ jobs:
         pip install flake8 pytest-playwright
         python -m pip install playwright
         python -m pip install pytest-xdist
-        python -m pip install playwright pytest allure-pytest
     - name: Ensure Playwright browsers are installed
       run: |
         python -m playwright install chromium
@@ -45,25 +44,18 @@ jobs:
           EMAIL: ${{secrets.EMAIL}}
           PASSWORD: ${{secrets.PASSWORD}}
       run: |
-        pytest --alluredir=allure-results
-    - name: Archive Allure reports
+        pytest --headful --report-path=playwright_report.html
+    - name: Archive test report
       uses: actions/upload-artifact@v2
       with:
-        name: allure-results
-        path: allure-res
+        name: playwright-report
+        path: playwright_report.html
 
-    - name: Install Allure CLI
-      run: |
-          sudo apt-add-repository ppa:qameta/allure
-          sudo apt-get update
-          sudo apt-get install allure
-
-    - name: Prepare Allure reports for deployment
-      run: |
-          allure generate allure-results --clean -o allure-report
-
-    - name: Deploy Allure reports to GitHub Pages
+    - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./allure-rep
+        publish_dir: .
+        keep_files: true
+         
+     
