@@ -1,9 +1,9 @@
 import re
+import pytest
 from playwright.sync_api import expect
+
 from pages.customer_login_page import CustomerLoginPage
 from pages.home_page import HomePage
-import pytest
-import os
 
 
 @pytest.mark.smoke
