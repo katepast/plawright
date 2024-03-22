@@ -45,12 +45,12 @@ jobs:
           EMAIL: ${{secrets.EMAIL}}
           PASSWORD: ${{secrets.PASSWORD}}
       run: |
-        pytest --headful --playwright-headful --playwright-screenshot-on-failure --playwright-report-path=playwright_report.html
+        pytest --html=report.html
     - name: Archive test report
       uses: actions/upload-artifact@v2
       with:
         name: playwright-report
-        path: playwright_report.html
+        path: report.html
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
