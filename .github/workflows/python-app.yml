@@ -29,7 +29,7 @@ jobs:
         pip install flake8 pytest-playwright
         python -m pip install playwright
         python -m pip install pytest-xdist
-        python -m pip install pytest-reporter-html1
+        python -m pip install playwright pytest pytest-html
     - name: Ensure Playwright browsers are installed
       run: |
         python -m playwright install chromium
@@ -45,5 +45,9 @@ jobs:
           EMAIL: ${{secrets.EMAIL}}
           PASSWORD: ${{secrets.PASSWORD}}
       run: |
-        pytest --template=html1/index.html --report=GItHubActions_report.html \
-              --video=retain-on-failure --screenshot=only-on-failure  -n2
+        pytest --html=report.html
+    - name: Archive HTML reports
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-reports
+        path: report.html
