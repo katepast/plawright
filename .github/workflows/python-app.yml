@@ -54,7 +54,7 @@ jobs:
 
     - name: Prepare Allure reports for deployment
       run: |
-        allure generate allure-res --clean -o allure-rep
+        allure generate allure-results --clean -o allure-report
 
     - name: Deploy Allure reports to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
