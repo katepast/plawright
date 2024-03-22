@@ -17,12 +17,8 @@ def test_open_whats_new_page(set_up):
 
 
 @pytest.mark.smoke
-def test_sign_in(set_up):
-    page = set_up
-    home_page = HomePage(page)
+def test_sign_in(sign_in):
+    page = sign_in
     cust_page = CustomerLoginPage(page)
-    home_page.click_sign_in_btn()
-    cust_page.set_email(os.environ['EMAIL'])
-    cust_page.set_password(os.environ['PASSWORD'])
     cust_page.click_sign_in()
     expect(page.get_by_text("Customer Login")).to_be_visible()
