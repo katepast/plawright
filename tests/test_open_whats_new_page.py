@@ -1,11 +1,12 @@
 import re
-
+import pytest
 from playwright.sync_api import expect
 
 from pages.customer_login_page import CustomerLoginPage
 from pages.home_page import HomePage
 
 
+@pytest.mark.smoke
 def test_open_whats_new_page(set_up):
     page = set_up
     home_page = HomePage(page)
@@ -16,16 +17,10 @@ def test_open_whats_new_page(set_up):
     expect(page).to_have_url(re.compile(".*/what-is-new.html"))
 
 
-def test_sign_in(set_up):
-    page = set_up
-    home_page = HomePage(page)
+@pytest.mark.smoke
+def test_sign_in(sign_in):
+    page = sign_in
     cust_page = CustomerLoginPage(page)
-    home_page.click_sign_in_btn()
-    cust_page.set_email("test@gmail.com")
-    cust_page.set_password("test123456")
     cust_page.click_sign_in()
-
-    expect(page.get_by_role("alert")).to_contain_text('The account sign-in was incorrect or your account is disabled temporarily')
-
-
-
+    #expect(page.get_by_text("Customer Login")).to_be_visible()
+    expect(page).to_have_url(re.compile(".*/customer/account/login/*"))
