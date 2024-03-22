@@ -40,25 +40,15 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Run tests and generate Allure reports
+    - name: Run tests
       env: 
           EMAIL: ${{secrets.EMAIL}}
           PASSWORD: ${{secrets.PASSWORD}}
       run: |
-        pytest --junitxml=report.xml --html=report.html
-    - name: Upload reports as artifacts
-      uses: actions/upload-artifact@v2
+        pytest --tracing=retain-on-failure
+    - uses: actions/upload-artifact@v4
+      if: always()
       with:
-        name: utils
-        path: |
-            - report.html
-            - report.xml
-
-    - name: Deploy reports to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-          github_token: ${{ secrets.TOKEN }}
-          publish_dir: .
-          publish_branch: gh-pages
-          cleanup: false
+        name: playwright-traces
+        path: test-results/
     
