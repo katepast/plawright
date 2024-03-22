@@ -29,7 +29,8 @@ jobs:
         pip install flake8 pytest-playwright
         python -m pip install playwright
         python -m pip install pytest-xdist
-        python -m pip install playwright pytest pytest-html
+        # python -m pip install playwright pytest pytest-html
+        python -m pip install pytest-reporter-html1
     - name: Ensure Playwright browsers are installed
       run: |
         python -m playwright install chromium
@@ -45,7 +46,8 @@ jobs:
           EMAIL: ${{secrets.EMAIL}}
           PASSWORD: ${{secrets.PASSWORD}}
       run: |
-        pytest --html=report.html
+        #pytest --html=report.html
+        pytest --template=html1/index.html --report=report.html
     - name: Archive test report
       uses: actions/upload-artifact@v2
       with:
@@ -56,5 +58,5 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.TOKEN }}
-        publish_dir: .
+        publish_dir: ./allure-rep
         keep_files: true
