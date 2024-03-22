@@ -3,6 +3,7 @@ from playwright.sync_api import expect
 from pages.customer_login_page import CustomerLoginPage
 from pages.home_page import HomePage
 import pytest
+import os
 
 
 @pytest.mark.smoke
@@ -21,7 +22,7 @@ def test_sign_in(set_up):
     home_page = HomePage(page)
     cust_page = CustomerLoginPage(page)
     home_page.click_sign_in_btn()
-    cust_page.set_email(utils.secret_config.EMAIL)
-    cust_page.set_password(utils.secret_config.PASSWORD)
+    cust_page.set_email(os.environ['EMAIL'])
+    cust_page.set_password(os.environ['PASSWORD'])
     cust_page.click_sign_in()
     expect(page.get_by_text('The account sign-in was incorrect')).to_be_visible()
