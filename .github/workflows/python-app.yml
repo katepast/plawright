@@ -58,5 +58,5 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.TOKEN }}
-        publish_dir: ./allure-rep
+        publish_dir: .
         keep_files: true
