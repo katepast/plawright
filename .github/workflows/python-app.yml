@@ -50,9 +50,9 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: test-reports
-        path:
-            - report.xml
+        path: |
             - report.html
+            - report.xml
 
     - name: Deploy reports to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
