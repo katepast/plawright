@@ -1,6 +1,4 @@
 import os
-
-import os
 import pytest
 from playwright.sync_api import Playwright
 from pages.customer_login_page import CustomerLoginPage
@@ -10,13 +8,13 @@ from pages.customer_login_page import CustomerLoginPage
 from pages.home_page import HomePage
 from utils.url import HOME_PAGE_URL
 
-EMAIL = os.environ['EMAIL']
-PASSWORD = os.environ['EMAIL']
+EMAIL = os.environ.get('EMAIL', 'default_email@example.com')
+PASSWORD = os.environ.get('PASSWORD', "pawdtest123")
 
 
 @pytest.fixture()
 def set_up(playwright: Playwright) -> None:
-    browser = playwright.chromium.launch(headless=True)
+    browser = playwright.chromium.launch(headless=False)
     context = browser.new_context()
     # Open new page and go to our URL
     page = context.new_page()
